@@ -8,13 +8,13 @@
 #define TASK1_INCLUDE_PYVECTOR_H_
 
 typedef struct pf {
-  char* name;
+  char *name;
   intVector lines;
   int n_parameters;
 } PYTHON_FUNC;
 
-typedef struct pv{
-  PYTHON_FUNC* array;
+typedef struct pv {
+  PYTHON_FUNC *array;
   int size;
   int takenSpots;
 } pyVector;

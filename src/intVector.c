@@ -17,7 +17,6 @@ void intVectorPrint(intVector *vector) {
   for (i = 0; i < vector->takenSpots; i++)
     printf("%d, ", vector->array[i]);
 
-
 }
 
 void intVectorPush(intVector *vector, int num) {
@@ -26,7 +25,6 @@ void intVectorPush(intVector *vector, int num) {
     intVectorEnlarge(vector);
 
   vector->array[vector->takenSpots - 1] = num;
-
 
 }
 

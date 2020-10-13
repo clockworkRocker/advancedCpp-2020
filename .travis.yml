@@ -1,5 +1,8 @@
 dist: trusty
-language: c
+
+sudo: required
+
+language: cpp
 os:
     - linux
 compiler:
@@ -14,8 +17,11 @@ env:
 
 addons:
   apt:
-    sources:
-      - george-edison55-precise-backports
     packages:
-      - cmake-data
-      - cmake
+      - valgrind
+      - cppcheck
+
+script:
+  - cmake .
+  - cppcheck src/* include* --enable=all --check-config
+  - make Task1
