@@ -23,7 +23,7 @@ addons:
       - cppcheck
 
 script:
-  - cmake .
+  - cmake . -DTESTING=YES
   - cppcheck src/* include/* tests/* --enable=all --check-config
   - make
   - valgrind --check-leaks=full --track_origins=yes ./testTask1 ${EXAMPLE_PATH}
