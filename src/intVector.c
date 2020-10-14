@@ -1,4 +1,4 @@
-#include "ht1.h"
+#include "../include/ht1.h"
 /*      ======== intVector functions ========       */
 
 void intVectorEnlarge(intVector *old) {
@@ -10,6 +10,25 @@ void intVectorEnlarge(intVector *old) {
   old->array = new.array;
   old->size *= 2;
 
+}
+
+void intVectorFree(intVector *vector){
+  if(vector->array != NULL)
+    free(vector->array);
+
+  vector->size = 0;
+
+  vector->takenSpots = 0;
+
+}
+
+void intVectorInit(intVector *vector) {
+  vector->takenSpots = 0;
+
+  vector->array = malloc(ARR_SIZE * sizeof(int));
+  memchk(vector->array);
+
+  vector->size = ARR_SIZE;
 }
 
 void intVectorPrint(intVector *vector) {

@@ -30,17 +30,20 @@ void collectPyFunctionsFromFile(FILE*, pyVector*);
 
 /*Utility functions*/
 char memchk(void*);
-int checkForDef(int, char*);
+int checkForIdentifier(const char*,int);
 void bufReset(int*, char*);
 
 /*intVector manipulation functions*/
 void intVectorEnlarge(intVector*);
+void intVectorFree(intVector*);
+void intVectorInit(intVector*);
 void intVectorPrint(intVector*);
 void intVectorPush(intVector*, int);
 
 /*pyVector manipulation functions*/
 void vectorCopyString(pyVector*, int, char*);
 void vectorEnlarge(pyVector*);
+void vectorInit(pyVector*);
 int vectorFindName(pyVector*, char*);
 void vectorFree(pyVector*);
 void vectorPrint(pyVector*);
