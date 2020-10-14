@@ -20,10 +20,9 @@ addons:
     packages:
       - valgrind
       - cppcheck
-  snaps:
-    - name: cmake
-      confinement: classic
-      channel: 3.18/candidate
+
+install:
+  - sudo snap install cmake --classic
 
 script:
   - cmake .
