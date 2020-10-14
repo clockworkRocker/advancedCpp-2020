@@ -18,12 +18,8 @@ env:
 addons:
   apt:
     packages:
-      - snapd
       - valgrind
       - cppcheck
-
-install:
-  - sudo snap install cmake --classic
 
 script:
   - cmake .
