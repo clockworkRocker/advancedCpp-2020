@@ -14,6 +14,7 @@ env:
     - TARGET_CPU=amd64 BUILD_CONFIGURATION=Release
     - TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
     - TARGET_CPU=x86 BUILD_CONFIGURATION=Release
+    - EXAMPLE_PATH=Examples/example.py
 
 addons:
   apt:
@@ -22,6 +23,9 @@ addons:
       - cppcheck
 
 script:
-  - cmake .
-  - cppcheck src/* include* --enable=all --check-config
-  - make Task1
+  - cmake . Task1
+  - cppcheck src/* include/* --enable=all --check-config
+  - make
+  - cmake testTask1
+  - make
+  - valgrind --check-leaks=full --track_origins=yes ./testTask1 ${EXAMPLE_PATH}

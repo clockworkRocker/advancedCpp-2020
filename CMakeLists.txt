@@ -4,16 +4,34 @@ project(Task1)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 14)
 
-include_directories(include)
+include_directories(include, /usr/lib/gtest)
 
-add_executable(Task1
-        src/main.c
-        src/vector.c
-        src/intVector.c)
+#        ======== Building part ========        #
+file(GLOB SRC_FILES src/*.c)
+list(REMOVE_ITEM SRC_FILES src/main.c)
 
-enable_testing()
+# -------- Create a lib for further purposes -------- #
+add_library(${PROJECT_NAME}_lib ${SRC_FILES} src/utility.c)
 
-add_executable(testTask1
-        tests/testVector.cpp)
+add_executable(${PROJECT_NAME}
+        src/main.c)
+target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}_lib)
 
-#gtest_discover_tests(testTask1)
+#        ======== Testing part ========        #
+file(GLOB TEST_SRC_FILES tests/*.cpp)
+
+OPTION(TESTING "Builds tests" OFF)
+
+if(TESTING)
+    enable_testing()
+
+    add_executable(testTask1
+            ${TEST_SRC_FILES})
+    target_link_libraries(testTask1 ${PROJECT_NAME}_lib)
+    target_link_libraries(testTask1 gtest)
+    target_link_libraries(testTask1 gtest_main pthread)
+
+    add_test(NAME gtest
+            COMMAND ./testTask1)
+
+endif(TESTING)
