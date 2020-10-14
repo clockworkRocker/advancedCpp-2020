@@ -20,6 +20,10 @@ addons:
     packages:
       - valgrind
       - cppcheck
+  snaps:
+    - name: cmake
+      confinement: classic
+      channel: 3.18/candidate
 
 script:
   - cmake .
