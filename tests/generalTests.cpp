@@ -5,7 +5,7 @@ extern "C" {
 #include "../include/pyVector.h"
 }
 
-char* examplePath;
+const char *examplePath = NULL;
 
 TEST(testGeneral, testWithExample) {
   FILE *file;
@@ -36,9 +36,10 @@ TEST(testGeneral, testCheckIdentifier) {
 
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
-  if(argc < 2)
-    exit(1);
+  if (argc < 2) {
+    examplePath = "Examples/example.py";
+  } else
+    examplePath = argv[1];
 
-  examplePath = argv[1];
   return RUN_ALL_TESTS();
 }
