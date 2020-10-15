@@ -1,10 +1,10 @@
-cmake_minimum_required(VERSION 3.9)
+cmake_minimum_required(VERSION 3.12)
 project(Task1)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 14)
 
-include_directories(include, /usr/lib/gtest)
+include_directories(include)
 
 #        ======== Building part ========        #
 file(GLOB SRC_FILES src/*.c)
@@ -24,6 +24,9 @@ OPTION(TESTING "Builds tests" OFF)
 
 if(TESTING)
     enable_testing()
+    set(EXAMPLE_PATH Examples/example.py)
+
+    find_package(GTest REQUIRED)
 
     add_executable(testTask1
             ${TEST_SRC_FILES})
@@ -31,7 +34,6 @@ if(TESTING)
     target_link_libraries(testTask1 gtest)
     target_link_libraries(testTask1 gtest_main pthread)
 
-    add_test(NAME gtest
-            COMMAND ./testTask1)
-
+    gtest_discover_tests(testTask1
+            EXTRA_ARGS "${EXAMPLE_PATH}")
 endif(TESTING)
