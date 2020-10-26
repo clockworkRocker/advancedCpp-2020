@@ -1,5 +1,8 @@
-dist: trusty
-language: c
+dist: focal
+
+sudo: required
+
+language: cpp
 os:
     - linux
 compiler:
@@ -11,11 +14,16 @@ env:
     - TARGET_CPU=amd64 BUILD_CONFIGURATION=Release
     - TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
     - TARGET_CPU=x86 BUILD_CONFIGURATION=Release
+    - EXAMPLE_PATH=Examples/example.py
 
 addons:
   apt:
-    sources:
-      - george-edison55-precise-backports
     packages:
-      - cmake-data
-      - cmake
+      - valgrind
+      - cppcheck
+
+script:
+  - cmake . -DTESTING=YES
+  - cppcheck src/* include/* tests/* --enable=all --check-config
+  - make
+  - valgrind --leak-check=full --track-origins=yes ./testTask1 ${EXAMPLE_PATH}
