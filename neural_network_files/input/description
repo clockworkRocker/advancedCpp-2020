@@ -1,0 +1,5 @@
+Dense("dense1", 100, 200)
+Dense("dense2", 200, 180)
+ReLU()
+Dense("dense3", 180, 40)
+ReLU()
