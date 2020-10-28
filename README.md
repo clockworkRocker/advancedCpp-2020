@@ -1,11 +1,13 @@
 # Репозиторий для индивидуальных заданий по углубленному программированию на C++
 ## Вариант #75
 ## Индивидуальное задание 1
-[![Build Status](https://travis-ci.com/clockworkRocker/advancedCpp-2020.svg?branch=Task1_dev)](https://travis-ci.com/clockworkRocker/advancedCpp-2020)
+[![Build Status](https://travis-ci.com/clockworkRocker/advancedCpp-2020.svg?branch=Task1)](https://travis-ci.com/clockworkRocker/advancedCpp-2020)
 
 Разработать программу, которая на вход принимает исходный код на языке Python, находит в нём все функции и для каждой из них заполняет структуру, содержащую информацию о названии функции, количестве параметров и о номерах строк, на которых она расположена. В результате должен получиться список таких структур, который нужно вывести на экран.
 
 ## Индивидуальное задание 2
+[![Build Status](https://travis-ci.com/clockworkRocker/advancedCpp-2020.svg?branch=Task2)](https://travis-ci.com/clockworkRocker/advancedCpp-2020)
+[![codecov](https://codecov.io/gh/clockworkRocker/advancedCpp-2020/branch/Task2/graph/badge.svg?token=GL5CS5N9WS)](undefined)
 
 Написать простую реализацию пропускания входных данных через обученную нейронную сеть. На вход нейронной сети принимается матрица «объект-признак», имеющая размерность «количество объектов»-«количество входных признаков» (n_objects, input_dim). На выходе ожидается тоже матрица «объект-признак», в которой количество объектов должно совпадать со входным количеством объектов, а количество признаков определяется свойствами выходного слоя (n_objects, output_dim).
 Нейронная сеть может содержать следующие типы слоёв:
