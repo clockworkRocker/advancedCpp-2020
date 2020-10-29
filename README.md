@@ -7,7 +7,7 @@
 
 ## Индивидуальное задание 2
 [![Build Status](https://travis-ci.com/clockworkRocker/advancedCpp-2020.svg?branch=Task2)](https://travis-ci.com/clockworkRocker/advancedCpp-2020)
-[![codecov](https://codecov.io/gh/clockworkRocker/advancedCpp-2020/branch/Task2/graph/badge.svg?token=GL5CS5N9WS)](undefined)
+[![codecov](https://codecov.io/gh/clockworkRocker/advancedCpp-2020/branch/Task2_dev/graph/badge.svg?token=GL5CS5N9WS)](undefined)
 
 Написать простую реализацию пропускания входных данных через обученную нейронную сеть. На вход нейронной сети принимается матрица «объект-признак», имеющая размерность «количество объектов»-«количество входных признаков» (n_objects, input_dim). На выходе ожидается тоже матрица «объект-признак», в которой количество объектов должно совпадать со входным количеством объектов, а количество признаков определяется свойствами выходного слоя (n_objects, output_dim).
 Нейронная сеть может содержать следующие типы слоёв:

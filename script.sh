@@ -23,4 +23,4 @@ then
   exit 1;
 fi
 echo "\n[Log] Running tests"
-valgrind --leak-check=full ./test_FakeNeuralNetwork
+./test_FakeNeuralNetwork
