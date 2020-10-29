@@ -1,0 +1,30 @@
+dist: focal
+
+sudo: required
+
+language: cpp
+os:
+  - linux
+compiler:
+  - gcc
+
+env:
+  - TARGET_CPU=amd64 BUILD_CONFIGURATION=Debug
+  - TARGET_CPU=amd64 BUILD_CONFIGURATION=Release
+  - TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
+  - TARGET_CPU=x86 BUILD_CONFIGURATION=Release
+
+addons:
+  apt:
+    packages:
+      - valgrind
+      - cppcheck
+      - gcovr
+
+script:
+  - sh script.sh
+
+after_success:
+  - cd build
+  - make test_coverage
+  - bash <(curl -s https://codecov.io/bash) test_coverage.xml || echo "Codecov did not collect coverage reports"
