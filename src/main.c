@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
 
   description_path = argv[2];
 
-  description_file_path = malloc(strlen(description_path) + strlen("description"));
+  description_file_path = malloc(strlen(description_path) + strlen("description") + 1);
 
   stpcpy(description_file_path, description_path);
   strcat(description_file_path, "description");

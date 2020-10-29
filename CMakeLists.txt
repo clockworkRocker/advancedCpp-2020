@@ -22,32 +22,38 @@ file(GLOB TEST_SRC   ${PROJECT_TEST_DIR}/*.cpp)
 # ------------ LIBRARIES ------------ #
 add_library(matrix ${MATRIX_SRC})
 add_library(neural ${NEURAL_SRC})
-    target_link_libraries(neural matrix)
+target_link_libraries(neural matrix)
+add_library(neural_with_threads SHARED ${PROJECT_SOURCE_DIR}/src/NR_process_parallel.c)
+target_link_libraries(neural_with_threads neural)
+target_link_libraries(neural_with_threads pthread)
 
 # ------------ EXECUTABLES ------------ #
 add_executable(${PROJECT_NAME} src/main.c)
-    target_link_libraries(${PROJECT_NAME} neural)
+target_link_libraries(${PROJECT_NAME} neural)
+target_link_libraries(${PROJECT_NAME} neural_with_threads)
+target_compile_definitions(${PROJECT_NAME} PUBLIC USE_THREADS)
+
 
 add_executable(teachNetwork src/teachNetwork.cpp)
-    target_link_libraries(teachNetwork neural)
-    target_compile_definitions(teachNetwork
-            PUBLIC INPUT_PATH="neural_network_files/input/")
+target_link_libraries(teachNetwork neural)
+target_compile_definitions(teachNetwork
+        PUBLIC INPUT_PATH="neural_network_files/input/")
 
 # ------------ ANALYSIS OPTIONS ------------ #
 option(ENABLE_TESTING  NO)
 option(ENABLE_COVERAGE NO)
 
 # ------------ TESTS ------------ #
-if(ENABLE_TESTING)
-    find_package(GTest)                                                         # Try to find GTest
 
+    find_package(GTest)                                                         # Try to find GTest
+if(ENABLE_TESTING)
     if(NOT GTEST_FOUND)
         include(FetchContent)
         FetchContent_Declare(                                                   # Get GTest from GitHub
                 googletest
                 GIT_REPOSITORY https://github.com/google/googletest.git
                 GIT_TAG        release-1.8.0
-        )
+                )
         if(NOT googletest_POPULATED)
             FetchContent_Populate(googletest)                                   # Install GTest
             add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
@@ -61,11 +67,16 @@ if(ENABLE_TESTING)
     enable_testing()
 
     add_executable(test_${PROJECT_NAME} ${TEST_SRC})
-        target_link_libraries(test_${PROJECT_NAME} gtest)
-        target_link_libraries(test_${PROJECT_NAME} gtest_main pthread)
-        target_link_libraries(test_${PROJECT_NAME} neural)
-        target_compile_definitions(test_${PROJECT_NAME}
-                PUBLIC INPUT_PATH="${PROJECT_TEST_DIR}/test_inputs/")
+    target_link_libraries(test_${PROJECT_NAME} gtest)
+    target_link_libraries(test_${PROJECT_NAME} gtest_main pthread)
+    target_link_libraries(test_${PROJECT_NAME} neural)
+    target_link_libraries(test_${PROJECT_NAME} neural_with_threads)
+    target_compile_definitions(test_${PROJECT_NAME}
+            PUBLIC INPUT_PATH="${PROJECT_TEST_DIR}/test_inputs/"
+                   STRESS_TEST_PATH="${PROJECT_SOURCE_DIR}/neural_network_files/"
+            )
+
+    gtest_discover_tests(test_${PROJECT_NAME})
 
     if(ENABLE_COVERAGE)
         include(CodeCoverage)
@@ -78,4 +89,3 @@ if(ENABLE_TESTING)
 
     endif(ENABLE_COVERAGE)
 endif(ENABLE_TESTING)
-
